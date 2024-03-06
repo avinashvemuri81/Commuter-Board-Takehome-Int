@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Commuter Board</title>
+    <style>
+      body {
+        background-color: black;
+        color: yellow;
+      }
+      table {
+        width: 100%;
+      }
+      th {
+        color: white;
+      }
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <div id="dayOfWeek"></div>
+        <div id="currentDate"></div>
+      </div>
+      <h1>Commuter Board for {{ location }}</h1>
+      <div>
+        <div>Current Time</div>
+        <div id="time"></div>
+      </div>
+    </header>
+    <h2>Departures</h2>
+    <table>
+      <tr>
+        <th>Carrier</th>
+        <th>Time</th>
+        <th>Destination</th>
+        <th>Train#</th>
+        <th>Track#</th>
+        <th>Status</th>
+      </tr>
+      {% for departure in departures %}
+      <tr>
+        <td>{{ departure.carrier }}</td>
+        <td>{{ departure.time }}</td>
+        <td>{{ departure.destination }}</td>
+        <td>{{ departure.train }}</td>
+        <td>{{ departure.track }}</td>
+        <td>{{ departure.status }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Arrivals</h2>
+    <table>
+      <tr>
+        <th>Carrier</th>
+        <th>Time</th>
+        <th>Destination</th>
+        <th>Train#</th>
+        <th>Track#</th>
+        <th>Status</th>
+      </tr>
+      {% for arrival in arrivals %}
+      <tr>
+        <td>{{ arrival.carrier }}</td>
+        <td>{{ arrival.time }}</td>
+        <td>{{ arrival.destination }}</td>
+        <td>{{ arrival.train }}</td>
+        <td>{{ arrival.track }}</td>
+        <td>{{ arrival.status }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <script>
+      var dayOfWeekElement = document.getElementById("dayOfWeek");
+      var currentDateElement = document.getElementById("currentDate");
+      var timeElement = document.getElementById("time");
+
+      var date = new Date();
+      var days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      var dayOfWeek = days[date.getDay()];
+      var currentDate = date.toLocaleDateString();
+
+      dayOfWeekElement.textContent = dayOfWeek;
+      currentDateElement.textContent = currentDate;
+
+      function updateTime() {
+        var now = new Date();
+        var time = now.toLocaleTimeString();
+        timeElement.textContent = time;
+      }
+
+      updateTime();
+      setInterval(updateTime, 1000);
+    </script>
+  </body>
+</html>

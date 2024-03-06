@@ -1,0 +1,8 @@
+<form method="POST" action="/commuter_board">
+  <select name="location">
+    {% for stop in stops %}
+    <option value="{{ stop.id }}">{{ stop.name }}</option>
+    {% endfor %}
+  </select>
+  <input type="submit" value="Get Board" />
+</form>
